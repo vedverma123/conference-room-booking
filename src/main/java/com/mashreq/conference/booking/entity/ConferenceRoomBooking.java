@@ -1,5 +1,6 @@
 package com.mashreq.conference.booking.entity;
 
+import com.mashreq.conference.booking.validator.ValidDateTime;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -20,13 +21,19 @@ public class ConferenceRoomBooking {
     Long id;
 
     @ManyToOne
+    @JoinColumn(name = "employee_id")
+    Employee employee;
+
+    @ManyToOne
     @JoinColumn(name = "room_id")
     ConferenceRoom room;
 
     @Column(nullable = false)
+    @ValidDateTime
     LocalDateTime startTime;
 
     @Column(nullable = false)
+    @ValidDateTime
     LocalDateTime endTime;
 
     @Column(nullable = false)
@@ -34,6 +41,9 @@ public class ConferenceRoomBooking {
 
     @Column(nullable = false)
     int attendees;
+
+    @Column(nullable = false)
+    boolean isRoomReleased;
 
     @PrePersist
     protected void onCreate() {

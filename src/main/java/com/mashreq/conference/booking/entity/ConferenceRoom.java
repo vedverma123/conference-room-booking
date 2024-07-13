@@ -41,7 +41,7 @@ public class ConferenceRoom {
     @Column(nullable = false, updatable = false)
     LocalDateTime createdAt;
 
-    @Column(nullable = false)
+    @Column/*(nullable = false)*/
     LocalDateTime updatedAt;
 
     @Version

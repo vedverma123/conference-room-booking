@@ -9,6 +9,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/booking")
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
+@Validated
 public class ConferenceRoomBookingController {
 
     ConferenceRoomBookingService roomBookingService;
@@ -26,4 +28,6 @@ public class ConferenceRoomBookingController {
     public ResponseEntity<ConferenceRoomBookingResponse> book(@RequestBody @Valid ConferenceRoomBookingRequest request) {
         return ResponseEntity.ok(roomBookingService.create(request));
     }
+
+
 }

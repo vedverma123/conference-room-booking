@@ -1,7 +1,8 @@
 package com.mashreq.conference.booking.exception;
 
+import com.mashreq.conference.booking.dto.ErrorResponse;
+import jakarta.validation.ValidationException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -16,7 +17,7 @@ public class RestExceptionHandler {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
+    public ErrorResponse handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
         ex.getBindingResult()
                 .getAllErrors()
@@ -25,14 +26,22 @@ public class RestExceptionHandler {
                         String errorMessage = error.getDefaultMessage();
                         errors.put(fieldName, errorMessage);
                 });
-        return errors;
+        return new ErrorResponse("Validation failed for one or more fields", errors, HttpStatus.BAD_REQUEST);
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(ValidationException.class)
+    public ErrorResponse handleValidationExceptions(ValidationException ex) {
+        Map<String, String> errors = new HashMap<>();
+        errors.put("error", ex.getMessage());
+        return new ErrorResponse("Validation error occurred", errors, HttpStatus.BAD_REQUEST);
     }
 
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    @ExceptionHandler({
-            ConferenceRoomException.class
-    })
-    public void handleBadRequestException(ConferenceRoomException exception) {
-        //Error response object here.
+    @ExceptionHandler(ConferenceRoomException.class)
+    public ErrorResponse handleConferenceRoomException(ConferenceRoomException ex) {
+        Map<String, String> errors = new HashMap<>();
+        errors.put("error", ex.getMessage());
+        return new ErrorResponse("Conference room error occurred", errors, HttpStatus.BAD_REQUEST);
     }
 }

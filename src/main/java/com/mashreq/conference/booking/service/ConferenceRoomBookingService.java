@@ -9,7 +9,6 @@ import com.mashreq.conference.booking.repository.ConferenceRoomBookingRepository
 import com.mashreq.conference.booking.repository.ConferenceRoomRepository;
 import com.mashreq.conference.booking.validator.BookingValidatorChain;
 import jakarta.persistence.OptimisticLockException;
-import jakarta.validation.ValidationException;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -35,20 +34,20 @@ public class ConferenceRoomBookingService {
         bookingValidatorChain.validate(bookingRequest);
         val attendees = bookingRequest.getAttendees();
         val availableRooms = roomRepository.findByCapacityGreaterThanEqualAndIsBookedFalse(attendees);
-        if(availableRooms.isEmpty()) {
-            throw new ValidationException("No suitable conference room found for " + attendees + " attendees.");
+        if (availableRooms.isEmpty()) {
+            throw new ConferenceRoomException("No suitable conference room found for " + attendees + " attendees.");
         }
-        for(ConferenceRoom eligibleRoom : availableRooms) {
-            try{
+        for (ConferenceRoom eligibleRoom : availableRooms) {
+            try {
                 eligibleRoom.setBooked(true);
                 roomRepository.saveAndFlush(eligibleRoom);
                 val conferenceRoomBooking = bookingMapper.mapToEntity(bookingRequest);
                 conferenceRoomBooking.setRoom(eligibleRoom);
                 return bookingMapper.mapToDto(bookingRepository.save(conferenceRoomBooking));
             } catch (OptimisticLockException exception) {
-                log.info("Another user is also trying to book a room, continue to the next one");
+                log.info("Concurrent booking attempt detected. Trying next available room.");
             }
         }
-        throw new ConferenceRoomException("No suitable conference room found for : " + attendees);
+        throw new ConferenceRoomException("Unable to find a suitable conference room for " + attendees + " attendees.");
     }
 }
