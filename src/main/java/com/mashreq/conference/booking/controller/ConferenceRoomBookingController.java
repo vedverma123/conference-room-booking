@@ -5,6 +5,7 @@ import com.mashreq.conference.booking.dto.ConferenceRoomBookingResponse;
 import com.mashreq.conference.booking.service.ConferenceRoomBookingService;
 import com.mashreq.conference.booking.swagger.CreateConferenceRoomBookingApi;
 import com.mashreq.conference.booking.swagger.DeleteConferenceRoomBookingApi;
+import com.mashreq.conference.booking.swagger.GetAllConferenceBookingsApi;
 import com.mashreq.conference.booking.swagger.GetConferenceRoomBookingApi;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
@@ -13,6 +14,8 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/booking")
@@ -32,6 +35,12 @@ public class ConferenceRoomBookingController {
     @GetConferenceRoomBookingApi
     public ResponseEntity<ConferenceRoomBookingResponse> findById(@PathVariable Long id) {
         return ResponseEntity.ok(roomBookingService.findById(id));
+    }
+
+    @GetMapping
+    @GetAllConferenceBookingsApi
+    public ResponseEntity<List<ConferenceRoomBookingResponse>> findAll() {
+        return ResponseEntity.ok(roomBookingService.findAll());
     }
 
     @DeleteMapping("/{id}")

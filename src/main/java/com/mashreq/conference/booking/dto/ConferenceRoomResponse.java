@@ -17,4 +17,5 @@ public class ConferenceRoomResponse {
     String name;
     int capacity;
     List<MaintenanceWindow> maintenanceWindow;
+    boolean isBooked;
 }
