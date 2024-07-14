@@ -56,7 +56,7 @@ public class ConferenceRoomBookingService {
             }
         }
         throw new ConferenceRoomException("Unable to find a suitable conference room for " + attendees + " attendees. " +
-                "Conference rooms may be on maintenance");
+                "Booking cannot be done during maintenance time");
     }
 
     public ConferenceRoomBookingResponse findById(Long id) {
