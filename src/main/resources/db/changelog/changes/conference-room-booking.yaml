@@ -5,10 +5,10 @@ databaseChangeLog:
       preConditions:
         - not:
             tableExists:
-              tableName: conference_room
+              tableName: conference_room_booking
       changes:
         - createTable:
-            tableName: conference_room
+            tableName: conference_room_booking
             columns:
               - column:
                   name: id
@@ -17,20 +17,20 @@ databaseChangeLog:
                   constraints:
                     primaryKey: true
                     nullable: false
-                    primaryKeyName: pk_conference_room
+                    primaryKeyName: pk_conference_room_booking
               - column:
-                  name: name
-                  type: VARCHAR(255)
+                  name: room_id
+                  type: BIGINT
                   constraints:
                     nullable: false
               - column:
-                  name: capacity
-                  type: INT
+                  name: start_time
+                  type: TIMESTAMP
                   constraints:
                     nullable: false
               - column:
-                  name: is_booked
-                  type: BOOLEAN
+                  name: end_time
+                  type: TIMESTAMP
                   constraints:
                     nullable: false
               - column:
@@ -39,22 +39,23 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: updated_at
-                  type: TIMESTAMP
+                  name: attendees
+                  type: INT
                   constraints:
                     nullable: false
               - column:
-                  name: version
-                  type: BIGINT
+                  name: is_room_released
+                  type: BOOLEAN
                   constraints:
                     nullable: false
-        - addUniqueConstraint:
-            columnNames: name
-            constraintName: uq_conference_room_name
-            tableName: conference_room
-        - createIndex:
-            indexName: idx_conference_room_name
-            tableName: conference_room
-            columns:
               - column:
-                  name: name
+                  name: is_removed
+                  type: BOOLEAN
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: conference_room_booking
+            baseColumnNames: room_id
+            constraintName: fk_conference_room_booking_room_id
+            referencedTableName: conference_room
+            referencedColumnNames: id

@@ -17,6 +17,7 @@ databaseChangeLog:
                   constraints:
                     primaryKey: true
                     nullable: false
+                    primaryKeyName: pk_room_maintenance
               - column:
                   name: start_time
                   type: TIME
@@ -27,3 +28,12 @@ databaseChangeLog:
                   type: TIME
                   constraints:
                     nullable: false
+        - createIndex:
+            indexName: idx_maintenance_start_end_time
+            tableName: room_maintenance
+            columns:
+              - column:
+                  name: start_time
+              - column:
+                  name: end_time
+

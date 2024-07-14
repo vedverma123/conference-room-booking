@@ -6,5 +6,11 @@ databaseChangeLog:
       file: changes/maintenance-window.yaml
       relativeToChangelogFile: true
   - include:
+      file: changes/conference-room-booking.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: changes/conference-room-maintenance-window.yaml
+      relativeToChangelogFile: true
+  - include:
       file: changes/data-setup.yaml
       relativeToChangelogFile: true

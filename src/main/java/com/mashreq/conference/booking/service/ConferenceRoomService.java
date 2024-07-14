@@ -5,6 +5,7 @@ import com.mashreq.conference.booking.dto.ConferenceRoomResponse;
 import com.mashreq.conference.booking.exception.ConferenceRoomException;
 import com.mashreq.conference.booking.mapper.ConferenceRoomMapper;
 import com.mashreq.conference.booking.repository.ConferenceRoomRepository;
+import com.mashreq.conference.booking.repository.RoomMaintenanceRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -23,6 +24,7 @@ public class ConferenceRoomService {
 
     ConferenceRoomRepository repository;
     ConferenceRoomMapper conferenceRoomMapper;
+    RoomMaintenanceRepository maintenanceRepository;
 
     public ConferenceRoomResponse create(ConferenceRoomRequest request) {
         repository.findByName(request.getName())
@@ -30,6 +32,8 @@ public class ConferenceRoomService {
                     throw new ConferenceRoomException("Conference Room already present with a name: " + request.getName());
                 });
         val entity = conferenceRoomMapper.mapToEntity(request);
+        val maintenanceList = maintenanceRepository.findAllById(request.getMaintenanceWindowIds());
+        entity.setRoomMaintenanceWindow(maintenanceList);
         return conferenceRoomMapper.mapToDto(repository.save(entity));
     }
 
@@ -39,14 +43,8 @@ public class ConferenceRoomService {
                 .orElseThrow(() -> new ConferenceRoomException("Conference room not present for Id : " + id));
     }
 
-    public ConferenceRoomResponse findByName(String name) {
-        return repository.findByName(name)
-                .map(conferenceRoomMapper::mapToDto)
-                .orElseThrow(() -> new ConferenceRoomException("Conference room not present for name : " + name));
-    }
-
-    public List<ConferenceRoomResponse> findAll(LocalTime startTime, LocalTime endTime) {
-        return repository.findAll()
+    public List<ConferenceRoomResponse> findAvailableByTimeRange(LocalTime startTime, LocalTime endTime) {
+        return repository.findAvailableRooms(startTime, endTime)
                 .stream()
                 .map(conferenceRoomMapper::mapToDto)
                 .toList();

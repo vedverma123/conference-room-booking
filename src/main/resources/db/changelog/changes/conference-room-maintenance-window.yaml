@@ -1,0 +1,39 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: Ved Verma
+      preConditions:
+        - not:
+            tableExists:
+              tableName: conference_room_maintenance
+      changes:
+        - createTable:
+            tableName: conference_room_maintenance
+            columns:
+              - column:
+                  name: conference_room_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: room_maintenance_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: conference_room_maintenance
+            baseColumnNames: conference_room_id
+            constraintName: fk_conference_room_maintenance_room
+            referencedTableName: conference_room
+            referencedColumnNames: id
+        - addForeignKeyConstraint:
+            baseTableName: conference_room_maintenance
+            baseColumnNames: room_maintenance_id
+            constraintName: fk_conference_room_maintenance_maintenance
+            referencedTableName: room_maintenance
+            referencedColumnNames: id
+        - addPrimaryKey:
+            tableName: conference_room_maintenance
+            columnNames: conference_room_id, room_maintenance_id
+            constraintName: pk_conference_room_maintenance
+

@@ -1,9 +1,8 @@
 package com.mashreq.conference.booking.dto;
 
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,6 +23,6 @@ public class ConferenceRoomRequest {
     @Min(value = 1, message = "Capacity has to be greater than 1")
     int capacity;
 
-    @NotNull
-    List<@Valid MaintenanceWindow> maintenanceWindow;
+    @NotEmpty
+    List<Long> maintenanceWindowIds;
 }

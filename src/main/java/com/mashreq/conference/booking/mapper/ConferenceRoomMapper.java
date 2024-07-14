@@ -11,7 +11,6 @@ public interface ConferenceRoomMapper {
 
     @Mapping(source = "name", target = "name")
     @Mapping(source = "capacity", target = "capacity")
-    @Mapping(source = "maintenanceWindow", target = "roomMaintenanceWindow")
     ConferenceRoom mapToEntity(ConferenceRoomRequest source);
 
     @Mapping(source = "name", target = "name")

@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Setter
 public class ConferenceRoomBooking {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     Long id;
 
