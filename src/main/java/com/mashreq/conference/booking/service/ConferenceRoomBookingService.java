@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalTime;
+import java.util.List;
 
 
 @Service
@@ -77,6 +78,13 @@ public class ConferenceRoomBookingService {
                     return bookingMapper.mapToDto(bookingRepository.save(conferenceRoomBooking));
                 })
                 .orElseThrow(() -> new ConferenceRoomException("Unable to find a booking for id: " + id));
+    }
+
+    public List<ConferenceRoomBookingResponse> findAll() {
+        return bookingRepository.findAll()
+                .stream()
+                .map(bookingMapper::mapToDto)
+                .toList();
     }
 
     private boolean isBookingTimeOverlapsMaintenance(ConferenceRoom eligibleRoom, LocalTime start, LocalTime end) {

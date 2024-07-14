@@ -10,6 +10,7 @@ This system enables users to check room availability, book rooms for specific ti
 - [Liquibase Integration](#liquibase-integration)
 - [Swagger](#swagger)
 - [Scheduled Task](#scheduled-task)
+- [Postman Collection](#postman-collection)
 
 ## Features
 - Check room availability
@@ -43,9 +44,26 @@ This system enables users to check room availability, book rooms for specific ti
 
 ## Liquibase Integration
 Liquibase is used for database migrations. Ensure that Liquibase is enabled in your `application.properties`.
+During the startup, we setup some test data to play with the APIs. 
+
+Test data is defined in **data-setup.sql** file.
+
 
 ## Swagger
 Swagger is available on http://localhost:8080/swagger-ui/index.html
 
 ## Scheduled Task
-The application includes a scheduled task **ConferenceRoomReleaseScheduler** to automatically release conference rooms when their booking time has ended.
+The application includes a scheduled task **ConferenceRoomReleaseScheduler** to automatically release conference rooms 
+when their booking time has ended.
+
+The scheduler finds out all the expired booking from now to an hour ago, this is configurable by the property
+
+`app.scheduler.roomRelease.timeIntervalHour=1`
+
+Also, this scheduler runs every minute, this is also configurable by the property
+
+`app.scheduler.roomRelease.fixedRate=60000`
+
+## Postman Collection
+
+Please find the Postman collection in the repository `/resources/postmanCollection`.
