@@ -5,7 +5,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -13,6 +13,7 @@ import java.time.format.DateTimeFormatter;
 import static com.mashreq.conference.booking.constants.AppConstants.TIME_PATTERN;
 
 @Configuration
+@EnableScheduling
 public class AppConfig {
 
     @Bean

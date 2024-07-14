@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import lombok.val;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -14,6 +15,9 @@ import java.util.List;
         name = "conference_room",
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = {"name"})
+        },
+        indexes = {
+                @Index(name = "idx_conference_room_name", columnList = "name")
         }
 )
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -28,7 +32,6 @@ public class ConferenceRoom {
     @Column(nullable = false)
     String name;
 
-    //constraint here for where clause.
     @Column(nullable = false)
     int capacity;
 
@@ -50,7 +53,9 @@ public class ConferenceRoom {
 
     @PrePersist
     protected void onCreate() {
-        createdAt = LocalDateTime.now();
+        val now = LocalDateTime.now();
+        createdAt = now;
+        updatedAt = now;
     }
 
     @PreUpdate

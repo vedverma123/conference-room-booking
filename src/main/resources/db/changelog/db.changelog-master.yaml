@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - include:
+      file: changes/conference-room.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: changes/maintenance-window.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: changes/data-setup.yaml
+      relativeToChangelogFile: true

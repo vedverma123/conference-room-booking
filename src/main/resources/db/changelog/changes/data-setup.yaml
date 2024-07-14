@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: Ved Verma
+      preConditions:
+        - dbms:
+            type: h2
+      changes:
+        - sqlFile:
+            path: sqls/data-setup.sql
+            relativeToChangelogFile: true
+            splitStatements: false
+            stripComments: false
