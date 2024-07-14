@@ -1,0 +1,64 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: Ved Verma
+      preConditions:
+        - not:
+            tableExists:
+              tableName: conference_room
+      changes:
+        - createTable:
+            tableName: conference_room
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: capacity
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_booked
+                  type: BOOLEAN
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_removed
+                  type: BOOLEAN
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: version
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+        - addUniqueConstraint:
+            columnNames: name
+            constraintName: uq_conference_room_name
+            tableName: conference_room
+        - createIndex:
+            indexName: idx_conference_room_name
+            tableName: conference_room
+            columns:
+              - column:
+                  name: name

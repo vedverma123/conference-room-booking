@@ -25,4 +25,5 @@ public class ConferenceRoomBookingResponse {
     int attendees;
     String roomName;
     String employeeName;
+    boolean isRemoved;
 }

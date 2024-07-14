@@ -21,10 +21,6 @@ public class ConferenceRoomBooking {
     Long id;
 
     @ManyToOne
-    @JoinColumn(name = "employee_id")
-    Employee employee;
-
-    @ManyToOne
     @JoinColumn(name = "room_id")
     ConferenceRoom room;
 
@@ -44,6 +40,9 @@ public class ConferenceRoomBooking {
 
     @Column(nullable = false)
     boolean isRoomReleased;
+
+    @Column(nullable = false)
+    boolean isRemoved;
 
     @PrePersist
     protected void onCreate() {

@@ -37,7 +37,7 @@ public class ConferenceRoomReleaseScheduler {
                 log.debug("No booking to release");
             }
             expiredBookings.forEach(booking -> {
-                log.debug("Releasing the room for booking id: " + booking.getId());
+                log.debug("Releasing the room for booking id: {}" , booking.getId());
 
                 booking.setRoomReleased(true);
                 val room = booking.getRoom();

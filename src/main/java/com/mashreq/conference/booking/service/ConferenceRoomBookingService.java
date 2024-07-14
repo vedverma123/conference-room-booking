@@ -50,4 +50,23 @@ public class ConferenceRoomBookingService {
         }
         throw new ConferenceRoomException("Unable to find a suitable conference room for " + attendees + " attendees.");
     }
+
+    public ConferenceRoomBookingResponse findById(Long id) {
+        return bookingRepository.findById(id)
+                .map(bookingMapper::mapToDto)
+                .orElseThrow(() -> new ConferenceRoomException("Unable to find booking for id : " + id));
+    }
+
+    @Transactional
+    public ConferenceRoomBookingResponse delete(Long id) {
+        return bookingRepository.findById(id)
+                .map(conferenceRoomBooking -> {
+                    log.debug("Soft deleting the booking having id: {}", conferenceRoomBooking.getId());
+                    conferenceRoomBooking.getRoom().setBooked(false);
+                    roomRepository.save(conferenceRoomBooking.getRoom());
+                    conferenceRoomBooking.setRemoved(true);
+                    return bookingMapper.mapToDto(bookingRepository.save(conferenceRoomBooking));
+                })
+                .orElseThrow(() -> new ConferenceRoomException("Unable to find a booking for id: " + id));
+    }
 }
