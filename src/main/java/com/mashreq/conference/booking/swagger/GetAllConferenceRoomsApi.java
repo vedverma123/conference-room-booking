@@ -11,8 +11,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 @Operation(
-        summary = "Returns the list of the conference rooms",
-        description = "Returns the list of the conference rooms"
+        summary = "Returns the list of the conference rooms in the given range of time",
+        description = "Returns the list of the conference rooms in the given range of time"
 )
 @ApiResponses({
         @ApiResponse(responseCode = "200",

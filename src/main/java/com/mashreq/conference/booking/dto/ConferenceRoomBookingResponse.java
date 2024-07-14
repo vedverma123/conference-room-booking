@@ -24,6 +24,5 @@ public class ConferenceRoomBookingResponse {
     LocalDateTime endTime;
     int attendees;
     String roomName;
-    String employeeName;
     boolean isRemoved;
 }

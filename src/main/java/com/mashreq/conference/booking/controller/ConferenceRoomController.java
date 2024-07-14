@@ -6,6 +6,7 @@ import com.mashreq.conference.booking.service.ConferenceRoomService;
 import com.mashreq.conference.booking.swagger.CreateConferenceRoomApi;
 import com.mashreq.conference.booking.swagger.GetAllConferenceRoomsApi;
 import com.mashreq.conference.booking.swagger.GetConferenceRoomApi;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
@@ -41,18 +42,14 @@ public class ConferenceRoomController {
         return ResponseEntity.ok(conferenceRoomService.findById(id));
     }
 
-    @GetMapping(params = {"name"})
-    @GetConferenceRoomApi
-    public ResponseEntity<ConferenceRoomResponse> findByName(@RequestParam String name) {
-        return ResponseEntity.ok(conferenceRoomService.findByName(name));
-    }
-
     @GetMapping(params = {"startTime", "endTime"})
     @GetAllConferenceRoomsApi
     public ResponseEntity<List<ConferenceRoomResponse>> findAllAvailable(
+            @Parameter(description = "Start time in HH:mm:ss format", example = "10:00:00")
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime startTime,
+            @Parameter(description = "End time in HH:mm:ss format", example = "10:30:00")
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime endTime) {
-        return ResponseEntity.ok(conferenceRoomService.findAll(startTime, endTime));
+        return ResponseEntity.ok(conferenceRoomService.findAvailableByTimeRange(startTime, endTime));
     }
 
 }

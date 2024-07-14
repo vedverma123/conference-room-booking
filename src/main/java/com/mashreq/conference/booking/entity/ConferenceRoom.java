@@ -25,7 +25,7 @@ import java.util.List;
 @Setter
 public class ConferenceRoom {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     Long id;
 
@@ -35,7 +35,13 @@ public class ConferenceRoom {
     @Column(nullable = false)
     int capacity;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToMany(fetch = FetchType.EAGER,
+                cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinTable(
+            name = "conference_room_maintenance",
+            joinColumns = @JoinColumn(name = "conference_room_id"),
+            inverseJoinColumns = @JoinColumn(name = "room_maintenance_id")
+    )
     List<RoomMaintenance> roomMaintenanceWindow;
 
     @Column(nullable = false)

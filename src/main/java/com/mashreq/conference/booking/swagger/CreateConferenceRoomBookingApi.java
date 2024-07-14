@@ -1,6 +1,7 @@
 package com.mashreq.conference.booking.swagger;
 
 import com.mashreq.conference.booking.dto.ConferenceRoomBookingRequest;
+import com.mashreq.conference.booking.dto.ConferenceRoomBookingResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -14,11 +15,12 @@ import java.lang.annotation.RetentionPolicy;
 
 @Operation(
         summary = "Create a Conference Room Booking",
-        description = "Create a new Conference Room Booking by specifying the request body. " +
-                      "It returns the id of the booking as part of the Header response"
+        description = "Create a new Conference Room Booking by specifying the request body. "
 )
 @ApiResponses({
-        @ApiResponse(responseCode = "201"),
+        @ApiResponse(responseCode = "201",
+                content = { @Content(schema = @Schema(implementation = ConferenceRoomBookingResponse.class),
+                        mediaType = "application/json")}),
         @ApiResponse(responseCode = "404", content = { @Content(schema = @Schema() )}),
         @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema() )})
 })
