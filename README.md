@@ -7,6 +7,7 @@ This system enables users to check room availability, book rooms for specific ti
 - [Features](#features)
 - [Prerequisites](#prerequisites)
 - [Build and Run](#build-and-run)
+- [In Memory Database](#in-memory-database)
 - [Liquibase Integration](#liquibase-integration)
 - [Swagger](#swagger)
 - [Scheduled Task](#scheduled-task)
@@ -42,6 +43,16 @@ This system enables users to check room availability, book rooms for specific ti
     ```sh
     ./mvnw spring-boot:run
     ```
+
+## In Memory Database
+Currently, application is configured to run with H2 database accessible at url [http://localhost:8080/h2-console/login.jsp]() 
+with following properties.
+
+```
+   JDBC URL : jdbc:h2:mem:conference_room_booking
+   User name : sa
+```   
+
 
 ## Liquibase Integration
 Liquibase is used for database migrations. Ensure that Liquibase is enabled in your `application.properties`.
