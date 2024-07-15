@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,6 +41,14 @@ public class RestExceptionHandler {
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     @ExceptionHandler(ConferenceRoomException.class)
     public ErrorResponse handleConferenceRoomException(ConferenceRoomException ex) {
+        Map<String, String> errors = new HashMap<>();
+        errors.put("error", ex.getMessage());
+        return new ErrorResponse("Conference room error occurred", errors, HttpStatus.BAD_REQUEST);
+    }
+
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(DateTimeParseException.class)
+    public ErrorResponse handleDateTimeParseException(DateTimeParseException ex) {
         Map<String, String> errors = new HashMap<>();
         errors.put("error", ex.getMessage());
         return new ErrorResponse("Conference room error occurred", errors, HttpStatus.BAD_REQUEST);
