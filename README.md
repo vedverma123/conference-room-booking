@@ -11,6 +11,7 @@ This system enables users to check room availability, book rooms for specific ti
 - [Swagger](#swagger)
 - [Scheduled Task](#scheduled-task)
 - [Postman Collection](#postman-collection)
+- [Further Improvements](#further-improvements)
 
 ## Features
 - Check room availability
@@ -67,3 +68,9 @@ Also, this scheduler runs every minute, this is also configurable by the propert
 ## Postman Collection
 
 Please find the Postman collection in the repository `/resources/postmanCollection`.
+
+## Further Improvements
+1. Make APIs secure using OAuth2.
+2. Background task or a job to prune the previous bookings, similar to **ConferenceRoomReleaseScheduler**. 
+3. Deploy the application on the cloud.
+4. User Interface to access the APIs by the internal employees.
