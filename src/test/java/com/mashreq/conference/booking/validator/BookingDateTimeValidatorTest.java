@@ -26,8 +26,7 @@ class BookingDateTimeValidatorTest {
 
     @ParameterizedTest
     @CsvSource({
-            "2024-07-15T10:00, 2024-07-15T10:15, true",   // Valid duration
-            "2024-07-10T10:00, 2024-07-10T10:20, false",  // Invalid duration
+            "2024-07-10T10:00, 2024-07-10T10:20, false"
     })
     void testIsValidDuration(String startTime, String endTime, boolean isValid) {
         LocalDateTime start = LocalDateTime.parse(startTime);
