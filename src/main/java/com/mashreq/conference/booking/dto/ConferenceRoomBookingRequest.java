@@ -4,10 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDateTime;
@@ -18,6 +15,7 @@ import static com.mashreq.conference.booking.constants.AppConstants.DATE_TIME_PA
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 public class ConferenceRoomBookingRequest {
 
     @NotNull(message = "Start Time cant be null")

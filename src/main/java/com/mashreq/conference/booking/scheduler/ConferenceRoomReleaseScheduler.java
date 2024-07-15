@@ -32,7 +32,8 @@ public class ConferenceRoomReleaseScheduler {
     public void releaseExpiredBookings() {
         try {
             val now = LocalDateTime.now();
-            val expiredBookings = bookingRepository.findByIsRoomReleasedFalseAndEndTimeBetween(now.minusHours(timeInterval), now);
+            val expiredBookings = bookingRepository.findByIsRoomReleasedFalseAndEndTimeBetween(now.minusHours(timeInterval),
+                                                                                               now);
             if(expiredBookings.isEmpty()) {
                 log.debug("No booking to release");
             }

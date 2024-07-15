@@ -1,10 +1,7 @@
 package com.mashreq.conference.booking.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDateTime;
@@ -15,6 +12,7 @@ import static com.mashreq.conference.booking.constants.AppConstants.DATE_TIME_PA
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @NoArgsConstructor
+@Setter
 public class ConferenceRoomBookingResponse {
 
     Long id;
