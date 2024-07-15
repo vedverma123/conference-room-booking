@@ -22,6 +22,7 @@ public interface ConferenceRoomRepository extends JpaRepository<ConferenceRoom, 
     @Query("SELECT cr FROM ConferenceRoom cr WHERE cr.isBooked = false AND cr.id NOT IN " +
             "(SELECT cr.id FROM ConferenceRoom cr JOIN cr.roomMaintenanceWindow rm " +
             "WHERE :startTime < rm.endTime AND :endTime > rm.startTime)")
-    List<ConferenceRoom> findAvailableRooms(@Param("startTime") LocalTime startTime, @Param("endTime") LocalTime endTime);
+    List<ConferenceRoom> findAvailableRooms(@Param("startTime") LocalTime startTime,
+                                            @Param("endTime") LocalTime endTime);
 
 }
