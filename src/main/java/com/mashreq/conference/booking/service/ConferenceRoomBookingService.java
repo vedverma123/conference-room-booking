@@ -87,7 +87,7 @@ public class ConferenceRoomBookingService {
                 .toList();
     }
 
-    private boolean isBookingTimeOverlapsMaintenance(ConferenceRoom eligibleRoom, LocalTime start, LocalTime end) {
+    public boolean isBookingTimeOverlapsMaintenance(ConferenceRoom eligibleRoom, LocalTime start, LocalTime end) {
         return eligibleRoom.getRoomMaintenanceWindow()
                 .stream()
                 .anyMatch(roomMaintenance -> isOverlapping(roomMaintenance, start, end));
